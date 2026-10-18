@@ -1,0 +1,43 @@
+services:
+  falkordb:
+    image: falkordb/falkordb:latest
+    container_name: store_falkordb
+    ports:
+      - "6379:6379"
+      - "3001:3000"          # FalkorDB Browser (optional graph UI), on host port 3001
+    volumes:
+      - falkordb_data:/data
+    restart: unless-stopped
+
+  loader:
+    build: .
+    image: store-graphrag
+    container_name: store_loader
+    environment:
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: "6379"
+      VLLM_API_BASE: ${VLLM_API_BASE:-http://localhost:8000/v1}
+      VLLM_MODEL: ${VLLM_MODEL:-your-model-name}
+    command: ["python", "-m", "store.build_graph"]
+    depends_on:
+      - falkordb
+    restart: "no"
+
+  app:
+    build: .
+    image: store-graphrag
+    container_name: store_app
+    environment:
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: "6379"
+      VLLM_API_BASE: ${VLLM_API_BASE:-http://localhost:8000/v1}
+      VLLM_MODEL: ${VLLM_MODEL:-your-model-name}
+    command: ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    depends_on:
+      - falkordb
+    restart: unless-stopped
+
+volumes:
+  falkordb_data:

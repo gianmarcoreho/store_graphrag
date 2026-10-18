@@ -1,0 +1,244 @@
+{
+  "entities": [
+    {
+      "label": "Customer",
+      "attributes": [
+        {
+          "name": "id",
+          "type": "number",
+          "unique": true,
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "mobile",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "birthdate",
+          "type": "string",
+          "unique": false,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "Store",
+      "attributes": [
+        {
+          "name": "id",
+          "type": "number",
+          "unique": true,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "Order",
+      "attributes": [
+        {
+          "name": "order_id",
+          "type": "string",
+          "unique": true,
+          "required": false
+        },
+        {
+          "name": "order_date",
+          "type": "string",
+          "unique": false,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "OrderItem",
+      "attributes": [
+        {
+          "name": "id",
+          "type": "string",
+          "unique": true,
+          "required": false
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "unique": false,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "Product",
+      "attributes": [
+        {
+          "name": "product_id",
+          "type": "number",
+          "unique": true,
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "ean",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "minsan",
+          "type": "string",
+          "unique": false,
+          "required": false
+        },
+        {
+          "name": "list_price",
+          "type": "string",
+          "unique": false,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "Brand",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "unique": true,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "Category",
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "unique": true,
+          "required": false
+        }
+      ],
+      "description": ""
+    },
+    {
+      "label": "Circuit",
+      "attributes": [
+        {
+          "name": "code",
+          "type": "number",
+          "unique": true,
+          "required": false
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "relations": [
+    {
+      "label": "PLACED",
+      "source": {
+        "label": "Customer"
+      },
+      "target": {
+        "label": "Order"
+      },
+      "attributes": []
+    },
+    {
+      "label": "FROM_STORE",
+      "source": {
+        "label": "Order"
+      },
+      "target": {
+        "label": "Store"
+      },
+      "attributes": []
+    },
+    {
+      "label": "VIA_CIRCUIT",
+      "source": {
+        "label": "Order"
+      },
+      "target": {
+        "label": "Circuit"
+      },
+      "attributes": []
+    },
+    {
+      "label": "HAS_ITEM",
+      "source": {
+        "label": "Order"
+      },
+      "target": {
+        "label": "OrderItem"
+      },
+      "attributes": []
+    },
+    {
+      "label": "OF_PRODUCT",
+      "source": {
+        "label": "OrderItem"
+      },
+      "target": {
+        "label": "Product"
+      },
+      "attributes": []
+    },
+    {
+      "label": "BELONGS_TO",
+      "source": {
+        "label": "Product"
+      },
+      "target": {
+        "label": "Brand"
+      },
+      "attributes": []
+    },
+    {
+      "label": "IN_CATEGORY",
+      "source": {
+        "label": "Product"
+      },
+      "target": {
+        "label": "Category"
+      },
+      "attributes": []
+    }
+  ]
+}
